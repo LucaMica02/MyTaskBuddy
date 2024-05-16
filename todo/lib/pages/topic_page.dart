@@ -1,60 +1,46 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo/data/database.dart';
+import 'package:todo/data/topic_obj.dart';
 import 'package:todo/util/dialog_box.dart';
 import 'package:todo/util/todo_tile.dart';
 
 class TopicPage extends StatefulWidget {
-  String topicName;
-  int topicNumber;
-  ToDoDataBase db;
+  Topic topic;
+  Data db;
 
-  TopicPage(
-      {required this.topicName, required this.topicNumber, required this.db});
+  TopicPage({required this.topic, required this.db});
 
   @override
   State<TopicPage> createState() => _TopicPage();
 }
 
 class _TopicPage extends State<TopicPage> {
-  //reference the box
-  final _myBox = Hive.box('mybox');
-
   //text controller
   final _controller = TextEditingController();
 
   @override
   void initState() {
-    if (_myBox.containsKey("TODO")) {
-      if (widget.topicNumber > (_myBox.get("TODO").length) - 1) {
-        widget.db.createInitialTodo();
-      } else {
-        widget.db.loadTodo();
-      }
-    } else {
-      widget.db.createInitialTodo();
-    }
     super.initState();
   }
 
   //checkbox function
   void checkBoxChanged(bool? value, int index) {
-    if (index >= 0 && index < widget.db.todo[widget.topicNumber].length) {
+    if (index >= 0 && index < widget.topic.getTodo().length) {
       setState(() {
-        widget.db.todo[widget.topicNumber][index][1] = value ?? false;
+        widget.topic.getTodo()[index][1] = value ?? false;
       });
-      widget.db.updateTodo();
     }
+    widget.db.updateTopic();
   }
 
   //save new task
   void saveNewTask() {
     setState(() {
-      widget.db.todo[widget.topicNumber].add([_controller.text, false]);
+      widget.topic.addTodo([_controller.text, false]);
       _controller.clear();
     });
     Navigator.of(context).pop();
-    widget.db.updateTodo();
+    widget.db.updateTopic();
   }
 
   //new task function
@@ -69,19 +55,20 @@ class _TopicPage extends State<TopicPage> {
             onCancel: () => Navigator.of(context).pop(),
           );
         });
+    widget.db.updateTopic();
   }
 
   //delete task
   void deleteTask(int index) {
     setState(() {
-      widget.db.todo[widget.topicNumber].removeAt(index);
+      widget.topic.removeTodo(index);
     });
-    widget.db.updateTodo();
+    widget.db.updateTopic();
   }
 
   @override
   Widget build(BuildContext context) {
-    String name = widget.topicName + " To-Do";
+    String name = widget.topic.getName() + " To-Do";
     return Scaffold(
         backgroundColor: Color.fromARGB(255, 255, 190, 93),
         appBar: AppBar(
@@ -94,11 +81,11 @@ class _TopicPage extends State<TopicPage> {
           child: Icon(Icons.add),
         ),
         body: ListView.builder(
-            itemCount: widget.db.todo[widget.topicNumber].length,
+            itemCount: widget.topic.getTodo().length,
             itemBuilder: (context, index) {
               return ToDoTile(
-                taskName: widget.db.todo[widget.topicNumber][index][0],
-                taskComplete: widget.db.todo[widget.topicNumber][index][1],
+                taskName: widget.topic.getTodo()[index][0],
+                taskComplete: widget.topic.getTodo()[index][1],
                 onChanged: (value) => checkBoxChanged(value, index),
                 deleteFunction: (context) => deleteTask(index),
               );

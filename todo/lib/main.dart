@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:todo/data/topic_obj.dart';
 import 'package:todo/pages/home_page.dart';
 import 'package:hive_flutter/hive_flutter.dart';
 
 void main() async {
   //init the hive
   await Hive.initFlutter();
+
+  // register the adapter for the Topic hive object
+  Hive.registerAdapter(TopicAdapter()); // <-- this line right here
 
   //open a box
   var box = await Hive.openBox('myBox');
@@ -20,9 +24,8 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: HomePage(),
-      theme: ThemeData(primarySwatch: Colors.orange),
-    );
+        debugShowCheckedModeBanner: false,
+        home: HomePage(),
+        theme: ThemeData(primarySwatch: Colors.deepPurple));
   }
 }

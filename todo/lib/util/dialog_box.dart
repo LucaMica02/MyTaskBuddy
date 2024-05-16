@@ -18,7 +18,7 @@ class DialogBox extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      backgroundColor: Colors.orange,
+      backgroundColor: Colors.deepPurple,
       content: Container(
         height: 150,
         width: 300,
@@ -31,7 +31,13 @@ class DialogBox extends StatelessWidget {
             decoration: InputDecoration(
               border: OutlineInputBorder(),
               hintText: text,
+              hintStyle:
+                  TextStyle(color: Colors.white), // Colore del testo suggerito
+              labelStyle: TextStyle(
+                  color: Colors.white), // Colore del testo dell'etichetta
+              counterStyle: TextStyle(color: Colors.white),
             ),
+            style: TextStyle(color: Colors.white),
           ),
 
           //center the button
@@ -40,12 +46,20 @@ class DialogBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               //save button
-              MyButton(text: "Save", onPressed: onSave),
+              MyButton(
+                text: "Save",
+                onPressed: onSave,
+                buttonColor: Color.fromARGB(255, 145, 219, 34),
+              ),
 
               const SizedBox(width: 8),
 
               //cancel button
-              MyButton(text: "Cancel", onPressed: onCancel)
+              MyButton(
+                text: "Cancel",
+                onPressed: onCancel,
+                buttonColor: Color.fromARGB(255, 217, 45, 45),
+              )
             ],
           ))
         ]),

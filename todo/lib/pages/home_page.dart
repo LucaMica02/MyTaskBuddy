@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:hive_flutter/hive_flutter.dart';
 import 'package:todo/data/database.dart';
+import 'package:todo/data/topic_obj.dart';
 import 'package:todo/pages/topic_page.dart';
 import 'package:todo/util/dialog_box.dart';
 import 'package:todo/util/topic_tile.dart';
@@ -13,29 +13,22 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  //reference the box
-  final _myBox = Hive.box('mybox');
-
   //text controller
   final _controller = TextEditingController();
 
-  //Database
-  ToDoDataBase db = ToDoDataBase();
+  //data
+  Data db = Data();
 
   @override
   void initState() {
-    if (_myBox.get("TOPIC") == null) {
-      db.createInitialTopic();
-    } else {
-      db.loadTopic();
-    }
+    db.initTopic();
     super.initState();
   }
 
   //save new task
   void saveNewTopic() {
     setState(() {
-      db.topic.add(_controller.text);
+      db.topic.add(Topic(_controller.text));
       _controller.clear();
     });
     Navigator.of(context).pop();
@@ -54,22 +47,21 @@ class _HomePageState extends State<HomePage> {
             onCancel: () => Navigator.of(context).pop(),
           );
         });
+    db.updateTopic();
   }
 
   //delete task
   void deleteTopic(int index) {
     setState(() {
       db.topic.removeAt(index);
-      db.todo.removeAt(index);
     });
     db.updateTopic();
   }
 
   @override
   Widget build(BuildContext context) {
-    List topic = db.topic;
     return Scaffold(
-        backgroundColor: Color.fromARGB(255, 255, 190, 93),
+        backgroundColor: Color.fromARGB(255, 167, 199, 118),
         appBar: AppBar(
             title: const Align(
                 alignment: Alignment.center,
@@ -82,7 +74,7 @@ class _HomePageState extends State<HomePage> {
           child: Icon(Icons.add),
         ),
         body: ListView.builder(
-            itemCount: topic.length,
+            itemCount: db.topic.length,
             itemBuilder: (context, index) {
               return GestureDetector(
                 onTap: () {
@@ -90,15 +82,14 @@ class _HomePageState extends State<HomePage> {
                     context,
                     MaterialPageRoute(
                       builder: (context) => TopicPage(
-                        topicName: topic[index],
-                        topicNumber: index,
+                        topic: db.topic[index],
                         db: db,
                       ),
                     ),
                   );
                 },
                 child: TopicTile(
-                  topicName: topic[index],
+                  topicName: db.topic[index].topicName,
                   deleteFunction: (context) => deleteTopic(index),
                 ),
               );
