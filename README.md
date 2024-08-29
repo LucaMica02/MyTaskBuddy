@@ -24,3 +24,41 @@ Once you have Dart and Flutter set up, follow these steps:
   ```bash
   git clone https://github.com/LucaMica02/my-task-buddy.git
   ```
+- **Navigate** to the project directory:
+  ```bash
+  cd my-task-buddy
+  ```
+- **Fetch** the project dependencies
+  ```bash
+  flutter pub get
+  ```
+
+### Running the App
+To run My Task Buddy on your device or emulator:
+- **Make** sure you have an Android emulator running or connect a physical device.
+- **Run** the app with the following command
+  ```bash
+  flutter run
+  ```
+
+### Building the APK
+To share the app with others or install it on your Android device:
+- **Build** the APK file
+  ```bash
+  flutter build apk --release
+  ```
+- **The APK** file will be generated in the build/app/outputs/flutter-apk/ directory. You can then download it to your device and start organizing your tasks!
+
+## Customization 🎨
+My Task Buddy is designed to be fully customizable! Whether you want to tweak the UI, add new features, or integrate it with other tools, the sky's the limit.
+- **UI Customization:** Change the colors, fonts, and layout to match your style.
+- **New Features:** Feel free to add new sections, task reminders, or even a dark mode!
+- **Open Source:** The project is open source, so you can contribute to it and help make it even better.
+
+## Contributing 🤝
+We love contributions! If you'd like to improve My Task Buddy, please fork the repository and submit a pull request. Let's make task management fun and easy together!
+
+## Support 📧
+If you encounter any issues or have any questions, feel free to reach out. We're here to help!
+
+Thank you for choosing **My Task Buddy!** We hope it helps you stay organized and make the most of your time. Happy tasking! 🎉
