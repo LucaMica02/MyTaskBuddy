@@ -1,5 +1,8 @@
 # My Task Buddy - Your Friendly To-Do List App 🌟
 
+![Dart Version](https://img.shields.io/badge/Dart-2.17%2B-0175C2)
+![Flutter Version](https://img.shields.io/badge/Flutter-3.0%2B-02569B)
+
 Welcome to **My Task Buddy!** We all know how easy it is to lose track of time and forget our daily tasks. In fact, it's estimated that we waste about 20% of our free time just trying to remember what we need to do next! 😱
 
 But worry no more—**My Task Buddy** is here to help you stay organized and make the most of your day. With this app, you can easily manage your tasks, divide them into sections, and mark them as completed once you're done. It's like having a personal assistant right in your pocket!
@@ -26,7 +29,7 @@ Once you have Dart and Flutter set up, follow these steps:
   ```
 - **Navigate** to the project directory:
   ```bash
-  cd MyTaskBuddy
+  cd MyTaskBuddy/src
   ```
 - **Fetch** the project dependencies
   ```bash
