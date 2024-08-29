@@ -22,11 +22,11 @@ Before you can start using My Task Buddy, you'll need to set up your development
 Once you have Dart and Flutter set up, follow these steps:
 - **Clone** this repository to your local machine:
   ```bash
-  git clone https://github.com/LucaMica02/my-task-buddy.git
+  git clone https://github.com/LucaMica02/MyTaskBuddy.git
   ```
 - **Navigate** to the project directory:
   ```bash
-  cd my-task-buddy
+  cd MyTaskBuddy
   ```
 - **Fetch** the project dependencies
   ```bash
